@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Lista de Tareas</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1 class="title">Lista de Tareas</h1>
+    </header>
+
+    <section class="task-input">
+      <input type="text" id="taskInput" placeholder="Escribe una nueva tarea..." autocomplete="off" />
+      <button id="addTaskBtn" aria-label="Agregar tarea">+</button>
+    </section>
+
+    <section class="task-list" id="taskList">
+      <!-- Aquí se insertarán las tareas -->
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
