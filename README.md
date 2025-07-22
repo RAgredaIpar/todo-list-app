@@ -41,10 +41,12 @@ Desarrollar una aplicación funcional y visualmente atractiva que permita al usu
 
 ## 📁 Estructura del proyecto
 
+```
 todo-app/
 ├── index.html # Estructura base
 ├── styles.css # Estilos y animaciones modernas
 └── script.js # Logica de tareas y almacenamiento local
+```
 
 ---
 
