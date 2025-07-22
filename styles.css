@@ -1,12 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 :root {
-  --bg-color: #f8f9fa;
-  --text-color: #111;
-  --accent-color: #007aff;
-  --task-bg: #fff;
-  --completed-color: #ccc;
-  --transition: 0.25s ease;
+  --bg-color: #ffffff;
+  --text-color: #0f0f0f; 
+  --accent-color: #6C63FF;
+  --gray-light: #f4f4f4;
+  --gray-mid: #c0c0c0;
+  --completed-color: #999999;
+  --transition: 0.3s ease;
+}
+
+.container {
+  animation: fadeInContainer 0.4s ease-out;
 }
 
 * {
@@ -49,7 +54,9 @@ body {
 .task-input {
   display: flex;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--gray-mid);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .task-input input {
@@ -60,6 +67,7 @@ body {
   font-size: 1rem;
   background-color: #f1f3f5;
   transition: var(--transition);
+  background-color: var(--gray-light);
 }
 
 .task-input input:focus {
@@ -68,18 +76,19 @@ body {
 }
 
 .task-input button {
-  padding: 0 1.2rem;
-  font-size: 1.5rem;
   background-color: var(--accent-color);
-  color: #fff;
-  border: none;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: var(--transition);
+  font-size: 1.25rem;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  line-height: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .task-input button:hover {
-  background-color: #005ecb;
+  background-color: #5148f5;
 }
 
 /* Lista de tareas */
@@ -93,11 +102,52 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--task-bg);
+  background-color: var(--gray-light);
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   transition: var(--transition);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn 0.3s forwards;
+}
+
+.task-item.hidden {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.task-item.deleting {
+  animation: fadeOutRight 0.5s ease-in-out forwards;
+}
+
+.task-item:hover {
+  background-color: #efefef;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.task-item::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--accent-color);
+  border-radius: 4px;
+  margin-right: 0.75rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.task-item.completed::before {
+  background-color: var(--accent-color);
+  box-shadow: inset 0 0 0 3px #fff;
+  transform: scale(1.1);
 }
 
 .task-item.completed .task-text {
@@ -114,6 +164,7 @@ body {
 .task-actions {
   display: flex;
   gap: 0.5rem;
+  color: #bbb;
 }
 
 .task-actions button {
@@ -122,11 +173,92 @@ body {
   color: #999;
   cursor: pointer;
   font-size: 1rem;
-  transition: var(--transition);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.task-input input:hover {
+  background-color: #e7e9ec;
 }
 
 .task-actions button:hover {
+  transform: scale(1.15);
   color: var(--accent-color);
+}
+
+.task-filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.task-filters button {
+  background: none;
+  border: none;
+  font-weight: 600;
+  color: #777;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.task-filters button:hover {
+  color: var(--accent-color);
+}
+
+.task-filters button.active {
+  color: var(--accent-color);
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.task-filters button.active::after {
+  content: '';
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: var(--accent-color);
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  border-radius: 2px;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInContainer {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutRight {
+  0% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    height: auto;
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(30px) scale(0.98);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(60px) scale(0.95);
+    height: 0;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 @media (max-width: 500px) {
